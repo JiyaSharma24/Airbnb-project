@@ -93,12 +93,12 @@ app.use("/Listings",listingsRouter);
 app.use("/listings/:id/reviews", reviewRouter);
 app.use("/", userRouter);
 app.get("/",(req,res)=>{
-    res.send("hii i am root");
+    res.render("listing/index");
   });
 
   
  
-const port = process.env.PORT || 3000;
+const port = process.env.PORT ||1110;
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
