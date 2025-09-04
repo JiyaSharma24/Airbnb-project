@@ -92,9 +92,15 @@ app.use((req,res,next)=>{
 app.use("/Listings",listingsRouter);
 app.use("/listings/:id/reviews", reviewRouter);
 app.use("/", userRouter);
-app.get("/",(req,res)=>{
-    res.render("listings/index");
-  });
+app.get("/", async (req, res) => {
+    try {
+        const allListings = await Listing.find({});
+        res.render("listings/index", { allListings }); // pass variable here
+    } catch (err) {
+        req.flash("error", "Cannot load listings");
+        res.redirect("/");
+    }
+});
 
   
  
