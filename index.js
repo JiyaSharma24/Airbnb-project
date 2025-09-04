@@ -98,7 +98,7 @@ app.get("/", async (req, res) => {
         res.render("listings/index", { allListings }); // pass variable here
     } catch (err) {
         req.flash("error", "Cannot load listings");
-        res.redirect("/");
+          res.status(500).send("Cannot load listings at the moment");
     }
 });
 
