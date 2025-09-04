@@ -3,7 +3,8 @@
   "version": "23.4.0",
   "main": "index.js",
   "scripts": {
-    "test": "node --tls-min-v1.2 index.js"
+    "start": "node index.js",
+     "dev": "nodemon index.js"
   },
   "author": "",
   "license": "ISC",
