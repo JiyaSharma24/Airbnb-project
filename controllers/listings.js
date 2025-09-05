@@ -4,9 +4,16 @@ const ExpressError = require("../utils/ExpressError.js");
 const mongoose = require("mongoose");
 const axios= require("axios");
 // INDEX
-module.exports.index = async (req, res) => {
-  const allListings = await Listing.find({});
-  res.render("listings/index", { allListings });
+module.exports.index = async (req, res, next) => {
+  try {
+    const allListings = await Listing.find({});
+    console.log("Fetched Listings:", allListings);  
+    res.render("listings/index", { allListings });
+  } catch (err) {
+    console.error("Error loading listings:", err);  
+    req.flash("error", "Cannot load listings");
+    res.status(500).send("Cannot load listings at the moment");
+  }
 };
 
 // NEW FORM
