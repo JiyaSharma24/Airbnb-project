@@ -6,6 +6,8 @@ const express = require( 'express');
 const app= express();
 const mongoose = require('mongoose');
 const path = require("path");
+
+
 const ejs= require("ejs-mate"); 
 const methodOverride=  require("method-override");
 const listingsRouter= require("./routes/listing");
@@ -31,10 +33,8 @@ console.log(" connected to db");})
 });
 
 async function main() {
-  await mongoose.connect(dburl, {
-    tls: true,       
-    family: 4        
-  });
+  await mongoose.connect(dburl);
+   
 }
 
 app.set("view engine","ejs");
@@ -42,7 +42,7 @@ app.set("views", path.join(__dirname,"views"));
 app.use(express.urlencoded({extended:true }));
 app.engine("ejs",ejs);
 app.use(methodOverride('_method'));
-app.use(express.static(path.join(__dirname,"/public")));
+app.use(express.static(path.join(__dirname,"public")));
 
 const store=MongoStore.create({
     mongoUrl:dburl,
@@ -53,7 +53,7 @@ const store=MongoStore.create({
 });
 store.on("error",()=>{
     console.log("error in mongo Session store",err);
-})
+});
 const sessionOption ={
     store,
     secret:process.env.SECRET,
@@ -89,18 +89,13 @@ app.use((req,res,next)=>{
 })
 
 
-app.use("/Listings",listingsRouter);
+app.use("/listings",listingsRouter);
 app.use("/listings/:id/reviews", reviewRouter);
 app.use("/", userRouter);
-app.get("/", async (req, res) => {
-    try {
-        const allListings = await Listing.find({});
-        res.render("listings/index", { allListings }); // pass variable here
-    } catch (err) {
-        req.flash("error", "Cannot load listings");
-          res.status(500).send("Cannot load listings at the moment");
-    }
+  app.get("/", (req, res) => {
+    res.redirect("/listings");
 });
+
 
   
  
