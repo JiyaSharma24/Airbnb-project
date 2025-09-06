@@ -50,7 +50,7 @@ align-items: center;
   <p> Mountains</p>
   </div>
   <div class="filter">
-  <div>< class="fa-solid fa-person-swimming"></i></div>
+  <div><i class="fa-solid fa-person-swimming"></i></div>
   <p> Amazing pool</p>
   </div>
   <div class="filter">
@@ -79,7 +79,7 @@ align-items: center;
    <div class="container mt-4">
   <div class="row justify-content-center">
      <% for (let listing of allListings){%>
-<div class="col-md-4 mb-4" >
+<div class="col-6 col-md-3 mb-4" >
    <a href="/listings/<%= listing._id %>" class="text-decoration-none text-dark" > 
   <div class="card h-100 shadow">
     <img src="<%= listing.image.url %>" class="listingcard-img-top img-fluid show-img" alt="listing_image" style ="height:20rem; object-fit:cover;"/>
